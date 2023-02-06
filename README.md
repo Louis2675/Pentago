@@ -1,2 +1,2 @@
 # Pentago
-Creating a Pentago game 
+## ToDo List
