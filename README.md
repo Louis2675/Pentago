@@ -1,2 +1,5 @@
 # Pentago
-## ToDo List
+
+## ToDo list
+
+- Create and modify the codespaces
