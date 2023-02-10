@@ -1,5 +1,3 @@
-# Pentago
+# Pentago - ToDo list
 
-## ToDo list
-
-- Create and modify the codespaces
+- Demander a Mr senot si on peut appeler une fonction dans cette meme fonction
