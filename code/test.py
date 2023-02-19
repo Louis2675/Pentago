@@ -1,3 +1,4 @@
+
 """Ce fichier contient les paramètres du jeu"""
 
 SYMBOLE_JOUEUR_1 = "⦿"  # Initialise le symbole du joueur 1
@@ -47,16 +48,15 @@ def choisir_case(grille, symbole): # Permet de remplir une case de la grille en 
                 found_a_bad_number = False
                 for i in range(0, len(liste_of_choix)):
                     liste_of_choix[i] = liste_of_choix[i].replace(" ", "")
-                    if liste_of_choix[i] == "1" or liste_of_choix[i] == "2" or liste_of_choix[i] == "3" or liste_of_choix[i] == "4":
-
+                    try:
                         if i == 0:
-                            if not (1 <= int(liste_of_choix[i]) <= 4) and found_a_bad_number == False: # "a"
+                            if not (1 <= int(liste_of_choix[i]) <= 4) and found_a_bad_number == False:
                                 found_a_bad_number = True
-                        if not (1 <= int(liste_of_choix[i]) <= 3) and found_a_bad_number == False:
+                        elif not (1 <= int(liste_of_choix[i]) <= 3) and found_a_bad_number == False:
                                 found_a_bad_number = True
-                        print(found_a_bad_number)
+                    except ValueError:
+                        found_a_bad_number = True
                 if found_a_bad_number == False:
-                    print("Loop 1 ended")
                     input_valid = True
                     
         if input_valid == True:
