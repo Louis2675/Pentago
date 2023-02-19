@@ -4,68 +4,101 @@ SYMBOLE_JOUEUR_1 = "⦿"  # Initialise le symbole du joueur 1
 SYMBOLE_JOUEUR_2 = "⦾"  # Initialise le symbole du joueur 2
 SYMBOLE_VIDE = "."  # Initialise le symbole d'une case case_vide
 
-petite_grille = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] # Initialise une grille de 3x3
-grille = [[],[],[],[]] # Initialise la grille du jeu
 
-
-def copie_profonde_liste(liste): # Fonction qui permet de copier une liste
+def initialisation_petite_grille(): #
     """
-    Entrée : une variable de type liste
-    Sortie : une variable de type liste dans laquelle on a copié la liste d'entrée de deux dimensions
+    Entrée : vide
+    Intervention utilisateur : le joueur indique dans un input le nombre de case dans la petite grille
+    Sortie : la petite grille et sa taille
     """
-    nv_liste = []
-    for three_item_list in liste:
-        copy_of_three_item_list = []
-        for single_value in three_item_list:
-            copy_of_three_item_list.append(single_value)
-        nv_liste.append(copy_of_three_item_list)
-    return nv_liste
-
-for i in range(0, 4): # On demande 4 car il y a 4 petites grilles dans le jeu
-    grille[i] = copie_profonde_liste(petite_grille) # On ajoute une copie de la grille de 3x3 à la grille du jeu
-
-
-for i in range(len(grille)):
-    for j in range(len(grille[i])):
-        for k in range(len(grille[i][j])):
-                grille[i][j][k] = SYMBOLE_VIDE
+    entree_valide = False
+    while not entree_valide == True: #Tant que l'entrée n'est pas valide
+        try:
+            taille_grille = int(input("Donnez un coté de la petite grille (ex. 3 pour une grille en 3x3): "))
+            entree_valide = True
+        except ValueError:
+            print("Veuillez entrer un nombre entier")  
+            entree_valide = False 
+    petite_grille = []
+    for i in range(taille_grille):
+        petite_grille.append([])
+        for j in range(taille_grille):
+            petite_grille[i].append(SYMBOLE_VIDE)
+    return petite_grille, taille_grille
 
 
-def choisir_case(grille, symbole): # Permet de remplir une case de la grille en fonction du symbole du joueur (1 ou 2)
+def initialisation_grille():
     """
-    Entrée : la grille du jeu et le symbole du joueur (1 ou 2)
-    Intervention utilisateur : le joueur remplis un imput de la forme "case, ligne, colonne"
+    Entrée : vide
+    Intervention utilisateur : le joueur indique dans un input le nombre de petites grilles dans la grille
+    Sortie : la grille, sa taille et la taille de la petite grille
+    """
+    entree_valide = False
+    condition_sortie = False
+    while not entree_valide == True:
+        try:
+            taille_grille = int(input("Choisissez le nombre de petites grilles (ex. 4 pour 4x4 petite grilles): "))
+            entree_valide = True
+        except ValueError:
+            print("Veuillez entrer un nombre entier")  
+            entree_valide = False 
+    grille = []
+    while not condition_sortie == True:
+        nb_petite_grille = initialisation_petite_grille()
+        condition_sortie = True
+    for i in range(taille_grille):
+        grille.append([])
+        for j in range(taille_grille):
+            grille[i].append(nb_petite_grille[0])
+    return grille, taille_grille, nb_petite_grille[1]
+
+grille_info = initialisation_grille()
+
+def jouer_case(grille_info, symbole):
+    """
+    Entrée : les informations de la grille de jeu et le symbole du joueur (1 ou 2)
+    Intervention utilisateur : le joueur remplis un imput de la forme "colonne, ligne"
     Sortie : la grille du jeu avec la case remplie
     """
+    grille = grille_info[0]
+    taille_grille = grille_info[1]
+    taille_petite_grille = grille_info[2]
     case_vide = False
-    while case_vide == False:
-        input_valid = False
-        while not input_valid == True:
-            choix = input("Choisissez une case (case, ligne, colonne): ")
-            liste_of_choix = choix.split(",")
-            if len(liste_of_choix) == 3:
-                found_a_bad_number = False
-                for i in range(0, len(liste_of_choix)):
-                    liste_of_choix[i] = liste_of_choix[i].replace(" ", "")
-                    if liste_of_choix[i] == "1" or liste_of_choix[i] == "2" or liste_of_choix[i] == "3" or liste_of_choix[i] == "4":
+    while not case_vide == True:
+        entree_valide = False
+        while not entree_valide == True:
+            coordonnees = input("Choisissez une case sous le format colonne, ligne (ex. 1,4): ")
+            try:
+                coordonnees = tuple(int(x) -1 for x in coordonnees.split(","))
+            except ValueError:
+                print("Veuillez entrer des nombres entier")  
+                entree_valide = False
+            print("conversion ok")
+            if len(coordonnees) == 2:
+                print("longeur ok")
+                mauvais_nombre_trouve = False
+                for i in range(len(coordonnees)):
+                    if coordonnees[i] == -1:
+                            mauvais_nombre_trouve = True
+                            print("mauvais nombre trouve : valeur nulle, c'est", coordonnees[i])
+                    if not (0 <= coordonnees[i] <= taille_grille * taille_petite_grille -1):
+                        mauvais_nombre_trouve = True
+                        print("mauvais nombre trouve, c'est", coordonnees[i])
+                if mauvais_nombre_trouve == False:
+                    print("boucle terminee, pas de mauvais nombre")
+                    entree_valide = True
 
-                        if i == 0:
-                            if not (1 <= int(liste_of_choix[i]) <= 4) and found_a_bad_number == False: # "a"
-                                found_a_bad_number = True
-                        if not (1 <= int(liste_of_choix[i]) <= 3) and found_a_bad_number == False:
-                                found_a_bad_number = True
-                        print(found_a_bad_number)
-                if found_a_bad_number == False:
-                    print("Loop 1 ended")
-                    input_valid = True
-                    
-        if input_valid == True:
-            choix = (int(liste_of_choix[0]) - 1, int(liste_of_choix[1]) - 1, int(liste_of_choix[2]) - 1)         
-        if grille[choix[0]][choix[1]][choix[2]] == SYMBOLE_VIDE:
-            grille[choix[0]][choix[1]][choix[2]] = symbole
-            
+
+        nb_petite_grille = coordonnees[1] // taille_petite_grille + 1
+        ligne = coordonnees[1] // taille_grille + 1
+        colonne = coordonnees[0] // taille_grille + 1
+        print(nb_petite_grille, ligne, colonne)
+        
+        if grille[nb_petite_grille][ligne][colonne] == SYMBOLE_VIDE:
+            grille[nb_petite_grille][ligne][colonne] = symbole
+            print("case vide")
             case_vide = True
+        print("fin func ou retour boucle")
 
-choisir_case(grille, SYMBOLE_JOUEUR_1)
-print(grille)
-
+jouer_case(grille_info, SYMBOLE_JOUEUR_1)
+print(grille_info[0])

@@ -1,2 +1,1 @@
-def afficher_grille(grille):
-    for i in 
+from parametres import initialisation_grille
