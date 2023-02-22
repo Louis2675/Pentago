@@ -1,1 +1,1 @@
-[[random.randint(0,2) for l in range(NNN)]for k in range(NNN)]for j in range (PPP)]for i in range(PPP)]
+afficher_grille(grille_info)
