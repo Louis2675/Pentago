@@ -105,19 +105,11 @@ def jouer_case(grille_info, symbole):
                     print("boucle terminee, pas de mauvais nombre")
                     entree_valide = True
 
-        
         ligne = coordonnees[1]
-        if ligne > taille_petite_grille: #Si la valeur de la ligne est plus grande que la taille de la sous grille,
-            while ligne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
-                ligne = ligne % taille_petite_grille #La ligne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
-
         colonne = coordonnees[0]
-        if colonne > taille_petite_grille: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
-            while colonne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
-                colonne = colonne % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
-        
         cpt_ligne = 0
         cpt_colonne = 0
+
         if ligne % taille_petite_grille == 0:
             cpt_ligne = ((ligne + 1) // taille_petite_grille) + 1
         else:
@@ -126,21 +118,30 @@ def jouer_case(grille_info, symbole):
             cpt_colonne = ((colonne + 1) // taille_petite_grille) + 1
         else:
             cpt_colonne = (colonne // taille_petite_grille) + 1
-        nb_petite_grille = (taille_grille * cpt_ligne) - (taille_grille - cpt_colonne)
+        nb_petite_grille = ((taille_grille * cpt_ligne) - (taille_grille - cpt_colonne)) - 1
+
+        
+        if ligne > taille_petite_grille: #Si la valeur de la ligne est plus grande que la taille de la sous grille,
+            while ligne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
+                ligne = ligne % taille_petite_grille #La ligne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+
+        if colonne > taille_petite_grille: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
+            while colonne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
+                colonne = colonne % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+        
             
-        print("on sort de la boucle coordonnees")
 
         print("pour la case, le calcul: {} + 1 // {} =".format(coordonnees[1], taille_petite_grille), nb_petite_grille)
         print("pour la ligne, le calcul: {} + 1 // {} =".format(coordonnees[1], taille_grille), ligne)
         print("pour la colonne,  le calcul: {} + 1 // {} =".format(coordonnees[0], taille_grille), colonne)
         
-        grille[nb_petite_grille][ligne][colonne] = "#"
+        grille[0][nb_petite_grille][ligne][colonne] = "#"
         afficher_grille(grille_info)
-        grille[nb_petite_grille][ligne][colonne] = SYMBOLE_VIDE
+        grille[0][nb_petite_grille][ligne][colonne] = SYMBOLE_VIDE
         
     
-        if grille[nb_petite_grille][ligne][colonne] == SYMBOLE_VIDE:
-            grille[nb_petite_grille][ligne][colonne] = symbole
+        if grille[0][nb_petite_grille][ligne][colonne] == SYMBOLE_VIDE:
+            grille[0][nb_petite_grille][ligne][colonne] = symbole
             print("case vide")
             case_vide = True
             
