@@ -134,13 +134,13 @@ def jouer_case(grille_info, symbole):
         print("pour la ligne, le calcul: {} + 1 // {} =".format(coordonnees[1], taille_grille), ligne)
         print("pour la colonne,  le calcul: {} + 1 // {} =".format(coordonnees[0], taille_grille), colonne)
         
-        grille[nb_petite_grille -1][ligne][colonne] = "#"
+        grille[nb_petite_grille][ligne][colonne] = "#"
         afficher_grille(grille_info)
-        grille[nb_petite_grille -1][ligne][colonne] = SYMBOLE_VIDE
+        grille[nb_petite_grille][ligne][colonne] = SYMBOLE_VIDE
         
     
-        if grille[nb_petite_grille -1][ligne][colonne] == SYMBOLE_VIDE:
-            grille[nb_petite_grille -1][ligne][colonne] = symbole
+        if grille[nb_petite_grille][ligne][colonne] == SYMBOLE_VIDE:
+            grille[nb_petite_grille][ligne][colonne] = symbole
             print("case vide")
             case_vide = True
             
