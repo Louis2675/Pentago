@@ -107,20 +107,27 @@ def jouer_case(grille_info, symbole):
 
         
         ligne = coordonnees[1]
-        cpt_1 = 1
         if ligne > taille_petite_grille: #Si la valeur de la ligne est plus grande que la taille de la sous grille,
             while ligne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
                 ligne = ligne % taille_petite_grille #La ligne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
-                cpt_1 = (ligne + 1) // taille_petite_grille
 
         colonne = coordonnees[0]
-        cpt_2 = 1
         if colonne > taille_petite_grille: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
             while colonne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
                 colonne = colonne % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
-                cpt_2 = (colonne + 1) // taille_petite_grille
+                cpt_colonne = (colonne // taille_petite_grille) + 1
         
-        nb_petite_grille = taille_grille + cpt_1 + cpt_2
+        cpt_ligne = 0
+        cpt_colonne = 0
+        if ligne % taille_petite_grille == 0:
+            cpt_ligne = ((ligne + 1) // taille_petite_grille) + 1
+        else:
+            cpt_ligne = (ligne // taille_petite_grille) + 1
+        if colonne % taille_petite_grille == 0:
+            cpt_colonne = ((colonne + 1) // taille_petite_grille) + 1
+        else:
+            cpt_colonne = (colonne // taille_petite_grille) + 1
+        nb_petite_grille = (taille_grille * cpt_ligne) - (taille_grille - cpt_colonne)
             
         print("on sort de la boucle coordonnees")
 
