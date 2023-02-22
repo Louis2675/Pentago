@@ -115,7 +115,6 @@ def jouer_case(grille_info, symbole):
         if colonne > taille_petite_grille: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
             while colonne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
                 colonne = colonne % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
-                cpt_colonne = (colonne // taille_petite_grille) + 1
         
         cpt_ligne = 0
         cpt_colonne = 0
