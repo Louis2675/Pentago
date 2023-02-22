@@ -1,8 +1,24 @@
 """Ce fichier contient les paramètres du jeu"""
 
+from affichage import afficher_grille
+
 SYMBOLE_JOUEUR_1 = "⦿"  # Initialise le symbole du joueur 1
 SYMBOLE_JOUEUR_2 = "⦾"  # Initialise le symbole du joueur 2
 SYMBOLE_VIDE = "."  # Initialise le symbole d'une case case_vide
+
+
+def copie_profonde_liste(liste): # Fonction qui permet de copier une liste
+    """
+    Entrée : une variable de type liste
+    Sortie : une variable de type liste dans laquelle on a copié la liste d'entrée de deux dimensions
+    """
+    copie_liste = []
+    for liste_a_trois_obj in liste:
+        copy_of_liste_a_trois_obj = []
+        for single_value in liste_a_trois_obj:
+            copy_of_liste_a_trois_obj.append(single_value)
+        copie_liste.append(copy_of_liste_a_trois_obj)
+    return copie_liste
 
 
 def initialisation_petite_grille(): #
@@ -46,13 +62,15 @@ def initialisation_grille():
     while not condition_sortie == True:
         nb_petite_grille = initialisation_petite_grille()
         condition_sortie = True
-    for i in range(taille_grille):
-        grille.append([])
-        for j in range(taille_grille):
-            grille[i].append(nb_petite_grille[0])
+        for i in range(taille_grille):
+            grille.append([])
+            for j in range(taille_grille):
+                grille[i].append(copie_profonde_liste(nb_petite_grille[0]))
     return grille, taille_grille, nb_petite_grille[1]
 
+
 grille_info = initialisation_grille()
+
 
 def jouer_case(grille_info, symbole):
     """
@@ -89,16 +107,30 @@ def jouer_case(grille_info, symbole):
                     entree_valide = True
 
 
-        nb_petite_grille = coordonnees[1] // taille_petite_grille + 1
-        ligne = coordonnees[1] // taille_grille + 1
-        colonne = coordonnees[0] // taille_grille + 1
-        print(nb_petite_grille, ligne, colonne)
+        nb_petite_grille = ((coordonnees[1] + 1) // taille_petite_grille) + 1
+        if coordonnees[1] == taille_petite_grille:
+            ligne = coordonnees[1] // taille_grille
+        else:
+            ligne = (coordonnees[1] + 1) // taille_grille
+        if coordonnees[0] == taille_petite_grille:
+            colonne = (coordonnees[0] // taille_grille) + 1
+        else:
+            colonne = ((coordonnees[0] + 1) // taille_grille) + 1
+
+        print("pour la case, le calcul: {} + 1 // {} =".format(coordonnees[1], taille_petite_grille), nb_petite_grille)
+        print("pour la ligne, le calcul: {} + 1 // {} =".format(coordonnees[1], taille_grille), ligne)
+        print("pour la colonne,  le calcul: {} + 1 // {} =".format(coordonnees[0], taille_grille), colonne)
         
-        if grille[nb_petite_grille][ligne][colonne] == SYMBOLE_VIDE:
-            grille[nb_petite_grille][ligne][colonne] = symbole
+        grille[nb_petite_grille -1][ligne -1][colonne -1] = "#"
+        afficher_grille(grille)
+        grille[nb_petite_grille -1][ligne -1][colonne -1] = SYMBOLE_VIDE
+        
+    
+        if grille[nb_petite_grille -1][ligne -1][colonne -1] == SYMBOLE_VIDE:
+            grille[nb_petite_grille -1][ligne -1][colonne -1] = symbole
             print("case vide")
             case_vide = True
-        print("fin func ou retour boucle")
+    return grille
 
-jouer_case(grille_info, SYMBOLE_JOUEUR_1)
-print(grille_info[0])
+grille = jouer_case(grille_info, SYMBOLE_JOUEUR_1)
+afficher_grille(grille)
