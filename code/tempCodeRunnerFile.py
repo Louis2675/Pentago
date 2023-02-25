@@ -1,1 +1,1 @@
-afficher_grille(grille_info)
+grille

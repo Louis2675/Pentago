@@ -145,4 +145,19 @@ def jouer_case(grille_info, symbole):
             print("case vide")
             case_vide = True
             
-jouer_case(grille_info, SYMBOLE_JOUEUR_1)
+
+
+def rotation_grille(grille_info):
+    """
+    Entree : la grille et le sens de la rotation
+    Sortie : la grille tournee
+    """
+    grille = grille_info[0] # On affecte a la variable grille la premiere valeur du triplet grille_info
+    taille_grille = grille_info[1] # On affecte a la variable taille_grille la deuxieme valeur du triplet grille_info
+    taille_petite_grille = grille_info[2] # On affecte a la variable taille_petite_grille la troisieme valeur du triplet grille_info
+    entree_valide = False # Variable qui permet de verifier si l'entree est valide (gauche ou droite)
+
+    while not entree_valide == True: # Boucle qui verifie si l'entree est valide
+        sens = input("Entrez le sens de rotation (gauche/droite) : ").lower()
+        if sens == "gauche" or sens == "droite": # si l'entree est valide
+            entree_valide = True
