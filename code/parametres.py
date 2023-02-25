@@ -146,7 +146,6 @@ def jouer_case(grille_info, symbole):
             case_vide = True
             
 
-
 def rotation_grille(grille_info):
     """
     Entree : la grille et le sens de la rotation
