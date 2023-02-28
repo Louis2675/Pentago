@@ -6,7 +6,7 @@ grille_info = initialisation_grille()
 def rotation(grille_info, grille_tournee):
     grille = grille_tournee # A changer car l'algo prend en compte une seule petite grille et non la grande
     taille_petite_grille = grille_info[2]
-    sauvegarde = copie_profonde_liste(grille_info) # On cree une sauvegarde de la petite grille (a changer aussi)
+    sauvegarde = copie_profonde_liste(grille_info[0]) # On cree une sauvegarde de la petite grille (a changer aussi)
     for colonne in range(0, taille_petite_grille): # pour avoir le nombre de la colonne
         ligne = taille_petite_grille - colonne - 1 # on regarde quelle ligne sera affecte dans la colonne apres la rotation
         for element in range(0, taille_petite_grille): # pour chaque element 
@@ -15,6 +15,7 @@ def rotation(grille_info, grille_tournee):
 
 def rotation_grille(grille_info):
     grille = grille_info[0]
+    taille_grande_grille = grille_info[1]
     entree_valide = False # var qui permet de verifier si l'entree est valide
     while not entree_valide == True: # on sort de la boucle quand l'entree est valide
         entree = input("Entrez les informations relatives a la rotation (direction ; nb_grille) ex. gauche ; 8 : ")
@@ -27,8 +28,9 @@ def rotation_grille(grille_info):
             if liste_info[0] == "gauche" or liste_info[0] == "droite": # on verifie l'entree des directions
                 print("str ok")          
                 try:
-                    liste_info = [liste_info[0], liste_info[1]]
-                    entree_valide = True
+                    if liste_info[1] != "0":
+                        liste_info = [liste_info[0], int(liste_info[1]) - 1]
+                        entree_valide = True
                 except IndexError: 
                     entree_valide = False
                     print("Entree invalide : veuillez entrer un nombre entier pour le numero de case")
@@ -36,12 +38,12 @@ def rotation_grille(grille_info):
         else:
             print("Entree invalide : veuillez entrer deux elements")
     
-    grille_tournee = grille[0][liste_info[1]]
+    grille_tournee = grille[liste_info[1]//taille_grande_grille][liste_info[1]%taille_grande_grille]
     if liste_info[0] == "gauche":
         print(grille_tournee)
-    if liste_info[0] == "droite":
-        grille_tournee = rotation(grille_tournee)
-        grille_tournee = rotation(grille_tournee)
-        grille_tournee = rotation(grille_tournee)
-                
+    if liste_info[0] == "droite": # Une rotation vers la droite correspond a trois rotations vers la gauche...
+        grille_tournee = rotation(grille_info, grille_tournee)
+        grille_tournee = rotation(grille_info, grille_tournee)
+        grille_tournee = rotation(grille_info, grille_tournee)
+
 rotation_grille(grille_info)
