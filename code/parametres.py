@@ -86,7 +86,7 @@ def jouer_case(grille_info, symbole):
         while not entree_valide == True: # Tant que l'entree n'est pas valide
             coordonnees = input("Choisissez une case sous le format colonne, ligne (ex. 1,4): ") # On demande a l'utilisateur de saisir les coordonnees de la case
             try: # On utilise un try/except pour verifier si l'entree est un nombre entier
-                coordonnees = tuple(int(x) -1 for x in coordonnees.split(",")) # On convertit la chaine de caractere en tuple de nombre entier
+                coordonnees = tuple(int(x) for x in coordonnees.split(",")) # On convertit la chaine de caractere en tuple de nombre entier
             except ValueError: # Si l'entree n'est pas valide, on affiche un message d'erreur et on recommence
                 print("Veuillez entrer des nombres entier")  
                 entree_valide = False
@@ -109,26 +109,38 @@ def jouer_case(grille_info, symbole):
         colonne = coordonnees[0]
 
         if ligne % taille_grille == 0:
-            grande_ligne = ((ligne + 1) % taille_petite_grille) + 1
+            grande_ligne = (ligne + 1) % taille_petite_grille
         else:
-            grande_ligne = (ligne % taille_petite_grille) + 1
+            grande_ligne = ligne % taille_petite_grille
+        
+        grande_ligne = grande_ligne - 1
 
         if colonne % taille_grille == 0:
-            grande_colonne = ((colonne + 1) % taille_petite_grille) + 1
+            grande_colonne = (colonne + 1) % taille_petite_grille
         else:
-            grande_colonne = (colonne % taille_petite_grille) + 1
+            grande_colonne = colonne % taille_petite_grille
+
+        grande_colonne = grande_colonne - 1
 
         if ligne > taille_petite_grille: #Si la valeur de la ligne est plus grande que la taille de la sous grille,
             while ligne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
                 ligne = ligne % taille_petite_grille #La ligne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
 
+        ligne = ligne - 1
+
         if colonne > taille_petite_grille: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
             while colonne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
                 colonne = colonne % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+
+        colonne = colonne - 1
         
-    
-        if grille[grande_ligne][grande_colonne][ligne][colonne] == SYMBOLE_VIDE:
-            grille[grande_ligne][grande_colonne][ligne][colonne] = symbole
+        print(grande_ligne)
+        print(grande_colonne)
+        print(ligne)
+        print(colonne)
+
+        if grille[grande_ligne][grande_colonne][colonne][ligne] == SYMBOLE_VIDE:
+            grille[grande_ligne][grande_colonne][colonne][ligne] = symbole
             print("case vide")
             case_vide = True
             
