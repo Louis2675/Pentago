@@ -1,25 +1,17 @@
+from parametres import initialisation_grille
+grille_info = initialisation_grille()
 
-def coordonees(liste_info, taille_grande_grille): # fonction qui permet de recuperer les coordonnees de la case
-
-    if liste_info % taille_grande_grille == 0: # si la case est un multiple de la taille de la grille
-        grande_ligne = liste_info // taille_grande_grille - 1 # on recupere la ligne de la grande grille
-        grande_colonne = taille_grande_grille -1 
-        
-    else: 
-        grande_ligne = liste_info // taille_grande_grille # on recupere la ligne de la grande grille
-        grande_colonne = liste_info % taille_grande_grille - 1 # on recupere la colonne de la grande grille
-    return grande_ligne, grande_colonne
-
-print(coordonees(1, 3))
-
-# [][][] [][][] [][][]
-# [][][] [][][] [][][] 
-# [][][] [][][] [][][]  
-
-# [][][] [][][] [][][]
-# [][][] [][][] [][][] 
-# [][][] [][][] [][][]  
-
-# [][][] [][][] [][][]
-# [][][] [][][] [][][] 
-# [][][] [][][] [][][]  
+def transformation_dimension(grille_info, longueur_alignement): # Fonction qui permet de transformer la grille de 4 dimensions en 2 dimensions
+    """
+    Entree : la grille
+    Sortie : True si il y a un alignement horizontal, False sinon
+    """
+    grille_copie = []
+    for Glig in range(grille_info[1]):
+        for lig in range(grille_info[2]):
+            grille_copie.append([])
+            copie_lig = lig + Glig * grille_info[2]
+            for Gcol in range(grille_info[1]):
+                for col in range(grille_info[2]):
+                    grille_copie[copie_lig].append(grille_info[0][Glig][Gcol][lig][col])
+    print(grille_copie)

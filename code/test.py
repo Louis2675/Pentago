@@ -1,16 +1,26 @@
 from affichage import afficher_grille
-from parametres import copie_profonde_liste, initialisation_grille
+from parametres import copie_profonde_liste, initialisation_grille, jouer_case, SYMBOLE_JOUEUR_1
+
+
+petite_grille = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
 grille_info = initialisation_grille()
 
 def rotation_gauche(grille_info, grille_tournee):
-    grille = grille_tournee # A changer car l'algo prend en compte une seule petite grille et non la grande
+    grille = grille_tournee
     taille_petite_grille = grille_info[2]
-    sauvegarde = copie_profonde_liste(grille_info[0]) # On cree une sauvegarde de la petite grille (a changer aussi)
+    sauvegarde = copie_profonde_liste(grille) # On cree une sauvegarde de la petite grille (a changer aussi)
     for colonne in range(0, taille_petite_grille): # pour avoir le nombre de la colonne
         ligne = taille_petite_grille - colonne - 1 # on regarde quelle ligne sera affecte dans la colonne apres la rotation
         for element in range(0, taille_petite_grille): # pour chaque element 
             grille[element][colonne] = sauvegarde[ligne][element] # on affecte apres la rotation vers la gauche
+    return grille
+
+def rotation_droite(grille_info, grille_tournee):
+    rotation = rotation_gauche(grille_info, grille_tournee)
+    rotation = rotation_gauche(grille_info, rotation)
+    rotation = rotation_gauche(grille_info, rotation)
+    return rotation
 
 
 def rotation_grille(grille_info):
@@ -39,21 +49,21 @@ def rotation_grille(grille_info):
             print("Entree invalide : veuillez entrer deux elements")
 
     if liste_info[1] % taille_grande_grille == 0: # si la case est un multiple de la taille de la grille
-        print("ici")
         grande_ligne = liste_info[1] // taille_grande_grille - 1 # on recupere la ligne de la grande grille
         grande_colonne = taille_grande_grille -1 
         
     else: 
-        print("la")
         grande_ligne = liste_info[1] // taille_grande_grille # on recupere la ligne de la grande grille
         grande_colonne = liste_info[1] % taille_grande_grille - 1 # on recupere la colonne de la grande grille
 
     grille_tournee = grille[grande_ligne][grande_colonne] # IMPORTANT : MAUVAISES VALEURS???
     if liste_info[0] == "gauche":
-        print(grille_tournee)
+        grille_tournee = rotation_gauche(grille_info, grille_tournee)
     if liste_info[0] == "droite": # Une rotation vers la droite correspond a trois rotations vers la gauche...
-        grille_tournee = rotation_gauche(grille_info, grille_tournee)
-        grille_tournee = rotation_gauche(grille_info, grille_tournee)
-        grille_tournee = rotation_gauche(grille_info, grille_tournee)
+        grille_tournee = rotation_droite(grille_info, grille_tournee)
+    grille_info[0][grande_ligne][grande_colonne] = grille_tournee
 
+jouer_case(grille_info, SYMBOLE_JOUEUR_1)
+afficher_grille(grille_info)
 rotation_grille(grille_info)
+afficher_grille(grille_info)

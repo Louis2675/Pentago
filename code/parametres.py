@@ -98,7 +98,7 @@ def jouer_case(grille_info, symbole):
                     if coordonnees[i] == -1: # On empeche que la coordonnee entree soit a 0 (car sinon on retorouve - 1 dans la liste, i.e. la derniere case)
                             mauvais_nombre_trouve = True # Si un mauvais nombre est trouve, on redemandera a l'utilisateur de saisir une nouvelle entree
                             print("mauvais nombre trouve : valeur nulle, c'est", coordonnees[i])
-                    if not (0 <= coordonnees[i] <= taille_grille * taille_petite_grille -1): # On verifie que les coordonnees entrees sont bien dans la grille (on evite l'IndexError)
+                    if not (0 <= coordonnees[i] <= taille_grille * taille_petite_grille): # On verifie que les coordonnees entrees sont bien dans la grille (on evite l'IndexError)
                         mauvais_nombre_trouve = True # Si un mauvais nombre est trouve, on redemandera a l'utilisateur de saisir une nouvelle entree
                         print("mauvais nombre trouve, c'est", coordonnees[i])
                 if mauvais_nombre_trouve == False: # Si aucun mauvais nombre n'a ete trouve, on sort de la boucle
@@ -108,59 +108,31 @@ def jouer_case(grille_info, symbole):
         ligne = coordonnees[1]
         colonne = coordonnees[0]
 
-        if ligne % taille_grille == 0:
-            grande_ligne = (ligne + 1) % taille_petite_grille
+        if ligne % taille_petite_grille == 0:
+            grande_ligne = (ligne - 1) // taille_petite_grille
         else:
-            grande_ligne = ligne % taille_petite_grille
+            grande_ligne = ligne // taille_petite_grille
         
-        grande_ligne = grande_ligne - 1
 
-        if colonne % taille_grille == 0:
-            grande_colonne = (colonne + 1) % taille_petite_grille
+        if colonne % taille_petite_grille == 0:
+            grande_colonne = (colonne - 1) // taille_petite_grille
         else:
-            grande_colonne = colonne % taille_petite_grille
+            grande_colonne = colonne // taille_petite_grille
 
-        grande_colonne = grande_colonne - 1
 
-        if ligne > taille_petite_grille: #Si la valeur de la ligne est plus grande que la taille de la sous grille,
-            while ligne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
-                ligne = ligne % taille_petite_grille #La ligne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+        if ligne % taille_petite_grille == 0: #Si la valeur de la ligne est plus grande que la taille de la sous grille,
+            ligne = (ligne - 1) % taille_petite_grille #La ligne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+        else:
+            ligne = (ligne % taille_petite_grille) - 1
 
-        ligne = ligne - 1
 
-        if colonne > taille_petite_grille: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
-            while colonne > taille_petite_grille: #Tant qu'elle n'est pas inferieure,
-                colonne = colonne % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+        if colonne % taille_petite_grille == 0: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
+            colonne = (colonne - 1) % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+        else:
+            colonne = (colonne % taille_petite_grille) - 1
 
-        colonne = colonne - 1
-        
-        print(grande_ligne)
-        print(grande_colonne)
-        print(ligne)
-        print(colonne)
 
-        if grille[grande_ligne][grande_colonne][colonne][ligne] == SYMBOLE_VIDE:
-            grille[grande_ligne][grande_colonne][colonne][ligne] = symbole
+        if grille[grande_ligne][grande_colonne][ligne][colonne] == SYMBOLE_VIDE:
+            grille[grande_ligne][grande_colonne][ligne][colonne] = symbole
             print("case vide")
             case_vide = True
-            
-
-def rotation_grille(grille_info):
-    """
-    Entree : la grille et le sens de la rotation
-    Sortie : la grille tournee
-    """
-    grille = grille_info[0] # On affecte a la variable grille la premiere valeur du triplet grille_info
-    taille_grille = grille_info[1] # On affecte a la variable taille_grille la deuxieme valeur du triplet grille_info
-    taille_petite_grille = grille_info[2] # On affecte a la variable taille_petite_grille la troisieme valeur du triplet grille_info
-    entree_valide = False # Variable qui permet de verifier si l'entree est valide (gauche ou droite)
-
-    while not entree_valide == True: # Boucle qui verifie si l'entree est valide
-        sens = input("Entrez le sens de rotation (gauche/droite) : ").lower()
-        if sens == "gauche" or sens == "droite": # si l'entree est valide
-            entree_valide = True
-
-
-print(grille_info[0])
-jouer_case(grille_info, SYMBOLE_JOUEUR_1)
-afficher_grille(grille_info)
