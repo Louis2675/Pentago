@@ -3,7 +3,7 @@ from parametres import copie_profonde_liste, initialisation_grille
 
 grille_info = initialisation_grille()
 
-def rotation(grille_info, grille_tournee):
+def rotation_gauche(grille_info, grille_tournee):
     grille = grille_tournee # A changer car l'algo prend en compte une seule petite grille et non la grande
     taille_petite_grille = grille_info[2]
     sauvegarde = copie_profonde_liste(grille_info[0]) # On cree une sauvegarde de la petite grille (a changer aussi)
@@ -39,19 +39,21 @@ def rotation_grille(grille_info):
             print("Entree invalide : veuillez entrer deux elements")
 
     if liste_info[1] % taille_grande_grille == 0: # si la case est un multiple de la taille de la grille
+        print("ici")
         grande_ligne = liste_info[1] // taille_grande_grille - 1 # on recupere la ligne de la grande grille
-        grande_colonne = liste_info[1] % taille_grande_grille - 1 # on recupere la colonne de la grande grille
+        grande_colonne = taille_grande_grille -1 
+        
     else: 
+        print("la")
         grande_ligne = liste_info[1] // taille_grande_grille # on recupere la ligne de la grande grille
-        grande_colonne = liste_info[1] % taille_grande_grille # on recupere la colonne de la grande grille
-
+        grande_colonne = liste_info[1] % taille_grande_grille - 1 # on recupere la colonne de la grande grille
 
     grille_tournee = grille[grande_ligne][grande_colonne] # IMPORTANT : MAUVAISES VALEURS???
     if liste_info[0] == "gauche":
         print(grille_tournee)
     if liste_info[0] == "droite": # Une rotation vers la droite correspond a trois rotations vers la gauche...
-        grille_tournee = rotation(grille_info, grille_tournee)
-        grille_tournee = rotation(grille_info, grille_tournee)
-        grille_tournee = rotation(grille_info, grille_tournee)
+        grille_tournee = rotation_gauche(grille_info, grille_tournee)
+        grille_tournee = rotation_gauche(grille_info, grille_tournee)
+        grille_tournee = rotation_gauche(grille_info, grille_tournee)
 
 rotation_grille(grille_info)
