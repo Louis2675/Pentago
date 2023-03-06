@@ -1,5 +1,6 @@
 """Ce fichier contient les affichages du jeu"""
 
+
 def afficher_ligne (sous_grille, taille_sous_grille, ligne): # Fonction qui permet d'afficher une ligne de la petite grille
     print("|", end="") # Met un element au debut de chaque ligne
     for colonne in range(0, taille_sous_grille): # Pour chaque element de la ligne
@@ -16,3 +17,4 @@ def afficher_grille(grille_info): # Fonction qui permet d'afficher la grille
             for j in range(0, taille_grille): # Pour le nombre de sous-grilles dans une grande-ligne
                 afficher_ligne(grille[k][j], taille_sous_grille, i)
             print()
+

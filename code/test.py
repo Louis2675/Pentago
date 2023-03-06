@@ -37,8 +37,16 @@ def rotation_grille(grille_info):
             else: print("Entree invalide : veuillez bien entrer 'gauche' ou 'droite' suivi d'un nombre entier")
         else:
             print("Entree invalide : veuillez entrer deux elements")
-    
-    grille_tournee = grille[liste_info[1]//taille_grande_grille][liste_info[1]%taille_grande_grille]
+
+    if liste_info[1] % taille_grande_grille == 0: # si la case est un multiple de la taille de la grille
+        grande_ligne = liste_info[1] // taille_grande_grille - 1 # on recupere la ligne de la grande grille
+        grande_colonne = liste_info[1] % taille_grande_grille - 1 # on recupere la colonne de la grande grille
+    else: 
+        grande_ligne = liste_info[1] // taille_grande_grille # on recupere la ligne de la grande grille
+        grande_colonne = liste_info[1] % taille_grande_grille # on recupere la colonne de la grande grille
+
+
+    grille_tournee = grille[grande_ligne][grande_colonne] # IMPORTANT : MAUVAISES VALEURS???
     if liste_info[0] == "gauche":
         print(grille_tournee)
     if liste_info[0] == "droite": # Une rotation vers la droite correspond a trois rotations vers la gauche...
