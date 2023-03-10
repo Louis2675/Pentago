@@ -2,6 +2,7 @@
 
 from affichage import afficher_grille
 
+
 SYMBOLE_JOUEUR_1 = "⦿"  # Initialise le symbole du joueur 1
 SYMBOLE_JOUEUR_2 = "⦾"  # Initialise le symbole du joueur 2
 SYMBOLE_VIDE = "."  # Initialise le symbole d'une case case_vide
@@ -71,6 +72,7 @@ def initialisation_grille():
 
 grille_info = initialisation_grille()
 
+
 def jouer_case(grille_info, symbole):
     """
     Entrée : les informations de la grille de jeu et le symbole du joueur (1 ou 2)
@@ -113,24 +115,20 @@ def jouer_case(grille_info, symbole):
         else:
             grande_ligne = ligne // taille_petite_grille
         
-
         if colonne % taille_petite_grille == 0:
             grande_colonne = (colonne - 1) // taille_petite_grille
         else:
             grande_colonne = colonne // taille_petite_grille
-
 
         if ligne % taille_petite_grille == 0: #Si la valeur de la ligne est plus grande que la taille de la sous grille,
             ligne = (ligne - 1) % taille_petite_grille #La ligne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
         else:
             ligne = (ligne % taille_petite_grille) - 1
 
-
         if colonne % taille_petite_grille == 0: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
             colonne = (colonne - 1) % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
         else:
             colonne = (colonne % taille_petite_grille) - 1
-
 
         if grille[grande_ligne][grande_colonne][ligne][colonne] == SYMBOLE_VIDE:
             grille[grande_ligne][grande_colonne][ligne][colonne] = symbole

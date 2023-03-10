@@ -1,1 +1,1 @@
-Gcol
+SYMBOLE_JOUEUR_1
