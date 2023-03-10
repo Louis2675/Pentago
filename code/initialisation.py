@@ -1,4 +1,5 @@
-from parametres import initialisation_grille, SYMBOLE_VIDE
+from parametres import SYMBOLE_VIDE
+from tests_alignements import alignement_horizontal, alignement_vertical, alignement_diagonnal
 
 
 def copie_profonde_liste(liste): # Fonction qui permet de copier une liste sur deux dimensions
@@ -80,6 +81,8 @@ def transformation_dimension(grille_info): # Fonction qui permet de transformer 
                 for col in range(grille_info[2]):
                     grille_copie[copie_lig].append(grille_info[0][Glig][Gcol][lig][col])
 
+
+def test_victoire ()
 
 # def alignement_horizontal(grille_modifiee, taille_victoire, Symboles = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]):
 #     for ligne in range(0, len(grille_modifiee)):
