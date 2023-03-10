@@ -44,6 +44,7 @@ def alignement_diagonnal(grille_modifiee, taille_victoire, Symboles = [SYMBOLE_J
             if compteur == taille_victoire:
                 return True
     else: 
+        compteur = 0
         for i in range(1, len(grille_modifiee[0])):
             if grille_modifiee[i][i] == grille_modifiee[i -1][i -1] == Symboles[1] or grille_modifiee[i][i] == grille_modifiee[i - 1][i -1] == Symboles[0]:
                 if compteur == 0:
