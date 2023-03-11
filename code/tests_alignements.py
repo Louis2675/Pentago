@@ -35,21 +35,37 @@ def alignement_vertical(grille_modifiee, taille_victoire, Symboles = [SYMBOLE_JO
 
 def alignement_diagonnal(grille_modifiee, taille_victoire, Symboles = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]):
     compteur = 0
-    for i in range(1, len(grille_modifiee[0])):
-        if grille_modifiee[-i -1][i] == grille_modifiee[-i][i -1] == Symboles[1] or grille_modifiee[-i -1][i] == grille_modifiee[-i][i -1] == Symboles[0]:
-            if compteur == 0:
-                compteur = compteur + 2
-            else:
-                compteur = compteur + 1
-            if compteur == taille_victoire:
-                return True
-    else: 
-        compteur = 0
+    for j in range(1, len(grille_modifiee)):
         for i in range(1, len(grille_modifiee[0])):
-            if grille_modifiee[i][i] == grille_modifiee[i -1][i -1] == Symboles[1] or grille_modifiee[i][i] == grille_modifiee[i - 1][i -1] == Symboles[0]:
+            if grille_modifiee[-i -j][i] == grille_modifiee[-i-(j-1)][i -1] == Symboles[1] or grille_modifiee[-i -j][i] == grille_modifiee[-i-(j-1)][i -1] == Symboles[0]:
                 if compteur == 0:
                     compteur = compteur + 2
                 else:
                     compteur = compteur + 1
                 if compteur == taille_victoire:
                     return True
+    else: 
+        compteur = 0
+        for j in range(1, len(grille_modifiee)):
+            for i in range(1, len(grille_modifiee[0])):
+                if grille_modifiee[-i -(j-1)][i] == grille_modifiee[-i -j][i -1] == Symboles[1] or grille_modifiee[i -(j-1)][i] == grille_modifiee[-i -j][i -1] == Symboles[0]:
+                    if compteur == 0:
+                        compteur = compteur + 2
+                    else:
+                        compteur = compteur + 1
+                    if compteur == taille_victoire:
+                        return True
+                
+
+grille_modifiee = [
+    [1, "a", SYMBOLE_JOUEUR_1, 8],
+    [1, "a", SYMBOLE_JOUEUR_1, 8],
+    [1, "a", SYMBOLE_JOUEUR_1, 8],
+    [1, "a", SYMBOLE_JOUEUR_1, 8],
+]
+
+#     if grille_modifiee[-i -j][i] == grille_modifiee[-i-(j-1)][i -1] == Symboles[1] or grille_modifiee[-i -j][i] == grille_modifiee[-i-(j-1)][i -1] == Symboles[0]:
+#        ~~~~~~~~~~~~~~~^^^^^^^
+# IndexError: list index out of range
+
+alignement_diagonnal(grille_modifiee, 3)
