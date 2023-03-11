@@ -2,6 +2,7 @@
 
 <img alt="GitHub Pipenv locked Python version" src="https://img.shields.io/github/pipenv/locked/python-version/Louis2675/Pentago?label=Python"> <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/Louis2675/Pentago?color=brightgreen"> <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Louis2675/Pentago?color=blueviolet"> <img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/Louis2675/Pentago?color=yellow&include_prereleases&label=version">
 
+Trouvez les règles du jeu <a href="https://fr.wikipedia.org/wiki/Pentago">ici.</a>
 ___
 
 ## Setup 
