@@ -29,7 +29,7 @@ Voici l'arborescence des fichiers du projet et leur fonction
 
 ## Remerciements
 
-<p> Merci à <a href="shields.io">shields.io</a> pour les badges de statistiques sur le fichier <code>README.md</code></p>
+<p> Merci à <a href="shields.io">shields.io</a> et <a href="xmind.app">xmind.app</a> pour les badges de statistiques et l'arborescence sur le fichier <code>README.md</code></p>
 <details>
  <Summary>Auteurs du projet...</summary>
 	<br>
