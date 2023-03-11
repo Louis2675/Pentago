@@ -1,8 +1,40 @@
- # Pentago
- 
- - Penser a retirer les `tuple()` et `list()`
- - Attention a la fonction du changement de dimention de la grille (peut donner des problemes de listees liees entre-elles)
- - Penser a transformer les rotations en procedures
- - prendre en compte le fait qu'il puisse y avoir deux alignements en meme temps
- - diagonale ne fonctionne que pour les deux diagonales de base (de coin a coin), peut etre essayer d'iterer les elements pour tester les diagonnales qui commencent sur chaque element
- 
+# Le jeu du Quintago
+
+<img alt="GitHub Pipenv locked Python version" src="https://img.shields.io/github/pipenv/locked/python-version/Louis2675/Pentago?label=Python"> <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/Louis2675/Pentago?color=brightgreen"> <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Louis2675/Pentago?color=blueviolet"> <img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/Louis2675/Pentago?color=yellow&include_prereleases&label=version">
+
+___
+
+## Setup 
+
+<p>Clonez <a href="https://github.com/Louis2675/Pentago">cette repo GitHub</a> sur votre ordinateur (ou téléchargez les fichiers directement) puis lancez le fichier <code>quintago.py</code> pour jouer au jeu.</p>
+
+### Alternatives en cas de problème avec le lancement du jeu
+
+Lancer le fichier via **Powershell** : 
+
+1. Localiser le directoire dans lequel vous avez téléchargé le dossier 
+```powershell
+cd <votre directoire>
+```
+2. Une fois que votre terminal est pointé vers le bon dossier utilisez la commande suivante
+```powershell
+ python -u "<votre directoire>/quintago.py"
+```
+
+## Informations relatives au projet
+
+### Arborescence du projet
+Voici l'arborescence des fichiers du projet et leur fonction
+<a href='https://www.linkpicture.com/view.php?img=LPic640c98b59034f1961891353'><img src='https://www.linkpicture.com/q/Screenshot-2023-03-11-160405.png' type='image'></a>
+
+## Remerciements
+
+<p> Merci à <a href="shields.io">shields.io</a> pour les badges de statistiques sur le fichier <code>README.md</code></p>
+<details>
+ <Summary>Auteurs du projet...</summary>
+	<br>
+ <ul>
+    <li> <a href="https://github.com/Louis2675">Louis Declerck</a>
+    <li> <a href="https://github.com/sp3ymaXx">Maxime Becquaert</a>
+ </ul>
+</details>
