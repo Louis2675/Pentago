@@ -1,1 +1,1 @@
-SYMBOLE_JOUEUR_1
+                cpt_tour = -1

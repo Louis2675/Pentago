@@ -60,3 +60,37 @@
 #     if liste_info[0] == "droite": # si on tourne vers la droite
 #         grille_tournee = rotation_droite(grille_info, grille_tournee)
 #     grille_info[0][grande_ligne][grande_colonne] = grille_tournee
+
+
+
+# def alignement_diagonnal(grille_modifiee, taille_victoire, symbole):
+#     cpt_tour = 0
+#     while cpt_tour != -1 or cpt_tour > len(gri):
+#         compteur = 0
+#         for i in range(cpt_tour, (len(grille_modifiee) - 1)):
+#             if grille_modifiee[i][i] == grille_modifiee[i + 1][i + 1] == symbole:
+#                 if compteur == 0:
+#                     compteur = compteur + 2
+#                 else:
+#                     compteur = compteur + 1
+#             else:
+#                 compteur = 0
+#         if compteur >= taille_victoire:
+#             cpt_tour = -1
+#             return True
+#         else:
+#             compteur = 0
+#             for i in range(cpt_tour, (len(grille_modifiee) - 1)):
+#                 if grille_modifiee[-i][-i] == grille_modifiee[-i + 1][-i + 1] == symbole:
+#                     if compteur == 0:
+#                         compteur = compteur + 2
+#                     else:
+#                         compteur = compteur + 1
+#                 else:
+#                     compteur = 0
+#             if compteur >= taille_victoire:
+#                 cpt_tour = -1
+#                 return True
+#         print("On arrive a la l 66")
+#         cpt_tour = cpt_tour + 1
+#     return False

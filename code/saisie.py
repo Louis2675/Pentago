@@ -1,4 +1,5 @@
-from parametres import SYMBOLE_VIDE, copie_profonde_liste
+from parametres import SYMBOLE_VIDE
+from initialisation import copie_profonde_liste
 
 
 def jouer_case(grille_info, symbole):
@@ -117,3 +118,30 @@ def rotation_grille(grille_info):
     if liste_info[0] == "droite": # si on tourne vers la droite
         grille_tournee = rotation_droite(grille_info, grille_tournee)
     grille_info[0][grande_ligne][grande_colonne] = grille_tournee
+
+
+def demander_nb_joueurs():
+    entree_valide = False
+    while not entree_valide == True:
+        try:
+            nb_joueurs = int(input("Combien de joueurs vont jouer ? "))
+            if nb_joueurs >= 2:
+                entree_valide = True
+            else: print("Veuillez entrer un nombre entier supérieur ou égal à 2")
+        except ValueError:
+            print("Veuillez entrer un nombre entier")
+    return nb_joueurs
+
+
+def demander_symbole(nb_joueurs):
+    symboles_joueurs = []
+    while len(symboles_joueurs) < nb_joueurs:
+        print(symboles_joueurs)
+        symbole = input("Entrez le symbole du joueur " + str(len(symboles_joueurs) + 1) + " : ")
+        if len(symbole) == 1:
+            symboles_joueurs.append(symbole)
+        else: print("Veuillez entrer un symbole d'un seul caractere")
+        for i in range (0, len(symboles_joueurs) -1):
+            if str(symbole) == symboles_joueurs[i]:
+                symboles_joueurs.pop()
+    return symboles_joueurs

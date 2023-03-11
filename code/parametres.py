@@ -1,6 +1,5 @@
 """Ce fichier contient les paramètres du jeu"""
 
-
 SYMBOLE_JOUEUR_1 = "⦿"  # Initialise le symbole du joueur 1
 SYMBOLE_JOUEUR_2 = "⦾"  # Initialise le symbole du joueur 2
 SYMBOLE_VIDE = "."  # Initialise le symbole d'une case case_vide
