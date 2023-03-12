@@ -34,7 +34,7 @@ def alignement_vertical(grille_modifiee, taille_victoire, symbole):
 
 
 
-def alignement_diagonnal(grille_modifiee, taille_victoire, symbole):
+def alignement_diagonal(grille_modifiee, taille_victoire, symbole):
     compteur = 0
     for ligne in range(0, len(grille_modifiee)):
         for colonne in range(0, len(grille_modifiee)):
@@ -54,18 +54,3 @@ def alignement_diagonnal(grille_modifiee, taille_victoire, symbole):
             if compteur >= taille_victoire:
                 return True
     return False
-
-
-grille_modifiee = [
-    [SYMBOLE_JOUEUR_1, "a", "a", 8],
-    [1, SYMBOLE_JOUEUR_1, "a", 8],
-    [1, 1, SYMBOLE_JOUEUR_1, 8],
-    [0, 1, 1, SYMBOLE_JOUEUR_1],
-]
-
-
-print(alignement_diagonnal(grille_modifiee, 2, SYMBOLE_JOUEUR_1))
-print(alignement_diagonnal(grille_modifiee, 2, "a"))
-print(alignement_diagonnal(grille_modifiee, 2, 1))
-print(alignement_diagonnal(grille_modifiee, 2, 8))
-print(alignement_diagonnal(grille_modifiee, 2, 0))

@@ -1,5 +1,5 @@
 from parametres import SYMBOLE_VIDE
-from initialisation import copie_profonde_liste
+from tour_de_jeu import rotation_droite, rotation_gauche
 
 
 def jouer_case(grille_info, symbole):
@@ -17,7 +17,9 @@ def jouer_case(grille_info, symbole):
         while not entree_valide == True: # Tant que l'entree n'est pas valide
             coordonnees = input("Choisissez une case sous le format colonne, ligne (ex. 1,4): ") # On demande a l'utilisateur de saisir les coordonnees de la case
             try: # On utilise un try/except pour verifier si l'entree est un nombre entier
-                coordonnees = tuple(int(x) for x in coordonnees.split(",")) # On convertit la chaine de caractere en tuple de nombre entier
+                for x in coordonnees.split(","):
+                    liste_coordonnees = []
+                    liste_coordonnees.append(int(x))
             except ValueError: # Si l'entree n'est pas valide, on affiche un message d'erreur et on recommence
                 print("Veuillez entrer des nombres entier")  
                 entree_valide = False
@@ -61,26 +63,7 @@ def jouer_case(grille_info, symbole):
 
         if grille[grande_ligne][grande_colonne][ligne][colonne] == SYMBOLE_VIDE:
             grille[grande_ligne][grande_colonne][ligne][colonne] = symbole
-            print("case vide")
             case_vide = True
-
-
-def rotation_droite(grille_info, grille_tournee):
-    grille = grille_tournee
-    taille_petite_grille = grille_info[2]
-    sauvegarde = copie_profonde_liste(grille) # On cree une sauvegarde de la petite grille (a changer aussi)
-    for colonne in range(0, taille_petite_grille): # pour avoir le nombre de la colonne
-        ligne = taille_petite_grille - colonne - 1 # on regarde quelle ligne sera affecte dans la colonne apres la rotation
-        for element in range(0, taille_petite_grille): # pour chaque element 
-            grille[element][colonne] = sauvegarde[ligne][element] # on affecte apres la rotation vers la gauche
-    return grille
-
-
-def rotation_gauche(grille_info, grille_tournee): # Une rotation vers la droite correspond a trois rotations vers la gauche...
-    rotation = rotation_droite(grille_info, grille_tournee) # on fait une rotation vers la gauche
-    rotation = rotation_droite(grille_info, rotation) # on fait une rotation vers la gauche
-    rotation = rotation_droite(grille_info, rotation) # on fait une rotation vers la gauche
-    return rotation
 
 
 def rotation_grille(grille_info):
@@ -90,7 +73,9 @@ def rotation_grille(grille_info):
     while not entree_valide == True: # on sort de la boucle quand l'entree est valide
         entree = input("Entrez les informations relatives a la rotation (direction ; nb_grille) ex. gauche ; 8 : ")
         entree = entree.replace(" ", "") # on enleve les espaces inutiles ecrits par l'utilisateur (permet d'eviter de redemander a cause d'espaces)
-        liste_info = list(x for x in entree.split(";")) # on separe les elements
+        for x in entree.split(";"):
+            liste_info = []
+            liste_info.append(x)
         if len(liste_info) == 2: # Si il n'y a que deux elements 
             if liste_info[0] == "gauche" or liste_info[0] == "droite": # on verifie l'entree des directions
                 try:
@@ -107,7 +92,6 @@ def rotation_grille(grille_info):
         if liste_info[1] % taille_grande_grille == 0: # si la case est un multiple de la taille de la grille
             grande_ligne = liste_info[1] // taille_grande_grille - 1 # on recupere la ligne de la grande grille
             grande_colonne = taille_grande_grille -1 
-        
         else: 
             grande_ligne = liste_info[1] // taille_grande_grille # on recupere la ligne de la grande grille
             grande_colonne = liste_info[1] % taille_grande_grille - 1 # on recupere la colonne de la grande grille
@@ -124,12 +108,12 @@ def demander_nb_joueurs():
     entree_valide = False
     while not entree_valide == True:
         try:
-            nb_joueurs = int(input("Combien de joueurs vont jouer ? "))
+            nb_joueurs = int(input("Combien de joueurs vont jouer ? (min. 2) : "))
             if nb_joueurs >= 2:
                 entree_valide = True
-            else: print("Veuillez entrer un nombre entier supérieur ou égal à 2")
+            else: print("Veuillez entrer un nombre entier supérieur ou égal à 2 : ")
         except ValueError:
-            print("Veuillez entrer un nombre entier")
+            print("Veuillez entrer un nombre entier : ")
     return nb_joueurs
 
 
@@ -140,7 +124,7 @@ def demander_symbole(nb_joueurs):
         symbole = input("Entrez le symbole du joueur " + str(len(symboles_joueurs) + 1) + " : ")
         if len(symbole) == 1:
             symboles_joueurs.append(symbole)
-        else: print("Veuillez entrer un symbole d'un seul caractere")
+        else: print("Veuillez entrer un symbole d'un seul caractere : ")
         for i in range (0, len(symboles_joueurs) -1):
             if str(symbole) == symboles_joueurs[i]:
                 symboles_joueurs.pop()

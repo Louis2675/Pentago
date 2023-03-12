@@ -1,0 +1,4 @@
+La grille de jeu est : 
+[1, 2, 3]
+Le dernier joueur a jouer est : 
+1
