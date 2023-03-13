@@ -1,6 +1,6 @@
-from parametres import SYMBOLE_VIDE
+from parametres import SYMBOLE_VIDE, SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2
 from tests_alignements import alignement_horizontal, alignement_vertical, alignement_diagonal
-from saisie import demander_symbole
+from saisie import demander_nb_joueurs, demander_symbole
 
 
 def copie_profonde_liste(liste): # Fonction qui permet de copier une liste sur deux dimensions
@@ -65,10 +65,7 @@ def initialisation_grille():
     return grille, taille_grille, nb_petite_grille[1] # On retourne la grille, sa taille et la taille de la petite grille sous forme de triplet
 
 
-grille_info = initialisation_grille()
-
-
-def transformation_dimension(grille_info): # Fonction qui permet de transformer la grille de 4 dimensions en 2 dimensions
+def transformation_dimension(grille_info, grille_modifiee): # Fonction qui permet de transformer la grille de 4 dimensions en 2 dimensions
     """
     Entree : la grille
     Sortie : True si il y a un alignement horizontal, False sinon
@@ -81,17 +78,16 @@ def transformation_dimension(grille_info): # Fonction qui permet de transformer 
             for Gcol in range(grille_info[1]):
                 for col in range(grille_info[2]):
                     grille_copie[copie_lig].append(grille_info[0][Glig][Gcol][lig][col])
+    grille_modifiee = grille_copie
 
 
-symboles_joueurs = demander_symbole()
-
-
-def test_victoire(grille_info, taille_victoire, symbole):
+def test_victoire(grille_info, taille_victoire, symboles_joueurs):
     liste_gagnants = []
     resultat = 0
-    grille_modifiee = transformation_dimension(grille_info)
-    for i in range(0, symboles_joueurs):
-        if alignement_horizontal(grille_modifiee, taille_victoire, symbole) == True or alignement_vertical(grille_modifiee, taille_victoire, symbole) == True or alignement_diagonal(grille_modifiee, taille_victoire, symbole) == True:
+    grille_modifiee = []
+    transformation_dimension(grille_info, grille_modifiee)
+    for i in range(0, len(symboles_joueurs)):
+        if alignement_horizontal(grille_modifiee, taille_victoire, symboles_joueurs[i]) == True or alignement_vertical(grille_modifiee, taille_victoire, symboles_joueurs[i]) == True or alignement_diagonal(grille_modifiee, taille_victoire, symboles_joueurs[i]) == True:
             liste_gagnants.append(i)
             resultat = True
     if len(liste_gagnants) > 1:
@@ -99,6 +95,13 @@ def test_victoire(grille_info, taille_victoire, symbole):
     return (resultat, liste_gagnants)
 
 
+def initialisation_joueurs():
+    nb_joueurs = demander_nb_joueurs()
+    if nb_joueurs == 2:
+        symboles_joueurs = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]
+    if nb_joueurs > 2: 
+        symboles_joueurs = demander_symbole(nb_joueurs)
+    return symboles_joueurs, nb_joueurs
 
 
 # def alignement_horizontal(grille_modifiee, taille_liste_gagnants, Symboles = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]):

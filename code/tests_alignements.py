@@ -1,6 +1,5 @@
 from parametres import SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2
 
-
 def alignement_horizontal(grille_modifiee, taille_victoire, symbole):
     for ligne in range(0, len(grille_modifiee)):
         compteur = 0
