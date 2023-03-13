@@ -1,7 +1,7 @@
 """Ce fichier contient les paramètres du jeu"""
 
-SYMBOLE_JOUEUR_1 = "🟡️"  # Initialise le symbole du joueur 1
-SYMBOLE_JOUEUR_2 = "⚪️"  # Initialise le symbole du joueur 2
+SYMBOLE_JOUEUR_1 = "\033[31m●\033[0m"  # Initialise le symbole du joueur 1
+SYMBOLE_JOUEUR_2 = "\033[33m●\033[0m"  # Initialise le symbole du joueur 2
 SYMBOLE_VIDE = " "  # Initialise le symbole d'une case case_vide
 
 

@@ -11,6 +11,9 @@ def jouer():
     infos_joueurs = initialisation_joueurs()
     symboles_joueurs = infos_joueurs[0]
     nb_joueurs = infos_joueurs[1]
+    if input("Appuyez sur entrée pour commencer la partie ou entrez 'sauvegarde' pour charger une sauvegarde : ") == "sauvegarde":
+        # On appliquera ici le chargement de partie
+        pass # changer ici
     while victoire == False:
         for i in range(0, len(symboles_joueurs)):
             afficher_grille(grille_info)

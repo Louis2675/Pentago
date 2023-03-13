@@ -16,7 +16,7 @@ def alignement_horizontal(grille_modifiee, taille_victoire, symbole):
     return False       
             
 
-def alignement_vertical(grille_modifiee, taille_victoire, symbole):
+def alig_vertical(grille_modifiee, taille_victoire, symbole):
     for colonne in range(0, len(grille_modifiee)):
         compteur = 0
         for ligne in range(1, len(grille_modifiee)): #Ne va pas jusqu'au bout, peut etre à cause de la grille temporaire, à tester sur la vraie grille
@@ -29,6 +29,19 @@ def alignement_vertical(grille_modifiee, taille_victoire, symbole):
                 compteur = 0
         if compteur >= taille_victoire:
             return True
+    return False
+
+def alignement_vertical(grille_modifiee, taille_victoire, symbole):
+    for colonne in range(0, len(grille_modifiee)):
+        compteur = 0
+        for ligne in range(1, len(grille_modifiee)):
+            if grille_modifiee[ligne][colonne] == grille_modifiee[ligne - 1][colonne] == symbole:
+                if compteur == 0:
+                    compteur = compteur + 2
+                else:
+                    compteur = compteur + 1
+                if compteur >= taille_victoire:
+                    return True
     return False
 
 
@@ -53,3 +66,11 @@ def alignement_diagonal(grille_modifiee, taille_victoire, symbole):
             if compteur >= taille_victoire:
                 return True
     return False
+
+grille = [['Y', 'X', 'X', ' ', ' ', ' '], 
+          ['Y', 'X', ' ', ' ', ' ', ' '], 
+          ['Y', 'X', 'X', ' ', ' ', ' '], 
+          [' ', ' ', 'O', ' x', ' ', ' '], 
+          [' ', ' ', 'O', ' x', ' ', ' '], 
+          [' ', ' ', 'O', 'x ', ' ', ' ']] #Grille temporaire pour tester les fonctions
+

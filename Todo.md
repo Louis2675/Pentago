@@ -7,5 +7,6 @@
   - Tester à fond pour voir si l'alignement marche
  - Enlever les "." en tant que `symbole_vide`
  - ARRETER LE JEU QUAND AUCUNE CASE EST RESTANTE
- - Pour les sauvegardes un fix leit etre de le faire que pour une grille en 2x3 a 2 joueurs (car on peut avoir des problemes pour encoder tous les symboles en multi...
+ - Pour les sauvegardes un fix leit etre de le faire que pour une grille en 2x3 a 2 joueurs car on peut avoir des problemes pour encoder tous les symboles en multi...
   - Demander si `jouer_case()` et `rotation_grille` doivent être dans saisie.py ou tour_de_jeu.py
+  - AFFICHAGE DEGUEULASSE MERCI MAXIME

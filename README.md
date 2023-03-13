@@ -30,8 +30,8 @@ Voici l'arborescence des fichiers du projet et leur fonction
 
 ### Paramètres utilisés
 
-- `SYMBOLE_JOUEUR_1` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (⦿)
-- `SYMBOLE_JOUEUR_2` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (⦾)
+- `SYMBOLE_JOUEUR_1` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● (rouge))
+- `SYMBOLE_JOUEUR_2` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● (bleu))
 - `SYMBOLE_VIDE` : Ce symbole sert à remplir la grille quand une case est vide (.)
 
 ## Remerciements

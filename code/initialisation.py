@@ -1,6 +1,7 @@
 from parametres import SYMBOLE_VIDE, SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2
 from tests_alignements import alignement_horizontal, alignement_vertical, alignement_diagonal
 from saisie import demander_nb_joueurs, demander_symbole
+from affichage import afficher_grille
 
 
 def copie_profonde_liste(liste): # Fonction qui permet de copier une liste sur deux dimensions
@@ -65,7 +66,7 @@ def initialisation_grille():
     return grille, taille_grille, nb_petite_grille[1] # On retourne la grille, sa taille et la taille de la petite grille sous forme de triplet
 
 
-def transformation_dimension(grille_info, grille_modifiee): # Fonction qui permet de transformer la grille de 4 dimensions en 2 dimensions
+def transformation_dimension(grille_info): # Fonction qui permet de transformer la grille de 4 dimensions en 2 dimensions
     """
     Entree : la grille
     Sortie : True si il y a un alignement horizontal, False sinon
@@ -78,14 +79,13 @@ def transformation_dimension(grille_info, grille_modifiee): # Fonction qui perme
             for Gcol in range(grille_info[1]):
                 for col in range(grille_info[2]):
                     grille_copie[copie_lig].append(grille_info[0][Glig][Gcol][lig][col])
-    grille_modifiee = grille_copie
+    return grille_copie
 
 
 def test_victoire(grille_info, taille_victoire, symboles_joueurs):
     liste_gagnants = []
     resultat = 0
-    grille_modifiee = []
-    transformation_dimension(grille_info, grille_modifiee)
+    grille_modifiee = transformation_dimension(grille_info)
     for i in range(0, len(symboles_joueurs)):
         if alignement_horizontal(grille_modifiee, taille_victoire, symboles_joueurs[i]) == True or alignement_vertical(grille_modifiee, taille_victoire, symboles_joueurs[i]) == True or alignement_diagonal(grille_modifiee, taille_victoire, symboles_joueurs[i]) == True:
             liste_gagnants.append(i)
@@ -103,6 +103,34 @@ def initialisation_joueurs():
         symboles_joueurs = demander_symbole(nb_joueurs)
     return symboles_joueurs, nb_joueurs
 
+grille_info = initialisation_grille()
+
+def sauvegarder_grille(grille_info, dernier_joueur):
+    fichier = open ("partie_en_cours.txt", "w")
+    fichier.write(str(grille_info[1]) + "\n")
+    fichier.write(str(grille_info[2]) + "\n")
+    fichier.write(str(dernier_joueur) + "\n")
+    grille_modifiee = transformation_dimension(grille_info)
+    variable = ""
+    for i in range(0, len(grille_modifiee)):
+        for j in range(0, len(grille_modifiee[0])):
+            variable = variable + str(grille_modifiee[i][j])
+    fichier.write(variable)
+
+
+sauvegarder_grille(grille_info, 1)
+
+def charger_grille():
+    grille_info = [0]
+    fichier = open ("partie_en_cours.txt", "r")
+    grille_info.append(int(fichier.readline().strip("\n"))) # On ajoute la taille de la grille
+    grille_info.append(int(fichier.readline().strip("\n"))) # On ajoute la taille de la grille
+    dernier_joueur = int(fichier.readline().strip("\n")) # On ajoute la taille de la petite grille
+    variable = fichier.readline()
+    grille_info[0] = [[[[int(variable[i * grille_info[2] ** 2 * grille_info[1] + j * grille_info[2] + k * grille_info[2] * grille_info[1]]) for l in range(grille_info[2])] for k in range(grille_info[2])] for j in range(grille_info[1])] for i in range(grille_info[1])]
+    return grille_info
+
+print(grille_info)
 
 # def alignement_horizontal(grille_modifiee, taille_liste_gagnants, Symboles = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]):
 #     for ligne in range(0, len(grille_modifiee)):
