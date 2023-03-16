@@ -9,3 +9,4 @@
  - Arreter le jeu quand aucune case n'est restante
  - Vérifier le nom des fonctions
  - Faire les commentaires
+ - Demander si on a le droit de break
