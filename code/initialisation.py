@@ -1,7 +1,6 @@
 from parametres import SYMBOLE_VIDE, SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2
 from tests_alignements import alignement_horizontal, alignement_vertical, alignement_diagonal
 from saisie import demander_nb_joueurs, demander_symbole
-from affichage import afficher_grille
 
 
 def copie_profonde_liste(liste): # Fonction qui permet de copier une liste sur deux dimensions

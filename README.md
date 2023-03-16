@@ -28,11 +28,13 @@ cd <votre directoire>
 Voici l'arborescence des fichiers du projet et leur fonction
 <a href='https://www.linkpicture.com/view.php?img=LPic640c98b59034f1961891353'><img src='https://www.linkpicture.com/q/Screenshot-2023-03-11-160405.png' type='image'></a>
 
-### Paramètres utilisés
+### Paramètres et librairies utilisés
 
-- `SYMBOLE_JOUEUR_1` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● (rouge))
-- `SYMBOLE_JOUEUR_2` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● (bleu))
+- `SYMBOLE_JOUEUR_1` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case ([color=#f4f4f4]●[/color])
+- `SYMBOLE_JOUEUR_2` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● - bleu)
 - `SYMBOLE_VIDE` : Ce symbole sert à remplir la grille quand une case est vide (.)
+
+- `os (.remove)` : Cette librairie nous permet de supprimer un fichier
 
 ## Remerciements
 

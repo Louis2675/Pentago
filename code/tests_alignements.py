@@ -3,7 +3,7 @@ def alignement_horizontal(grille_modifiee, taille_victoire, symbole):
     for ligne in range(0, len(grille_modifiee)):
         compteur = 0
         for colonne in range(1, len(grille_modifiee[ligne])):
-            if grille_modifiee[0][ligne] == grille_modifiee[ligne][colonne - 1] == symbole:
+            if grille_modifiee[colonne][ligne] == grille_modifiee[ligne][colonne - 1] == symbole:
                 if compteur == 0:
                     compteur = compteur + 2
                 else:
