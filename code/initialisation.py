@@ -103,10 +103,9 @@ def initialisation_joueurs():
         symboles_joueurs = demander_symbole(nb_joueurs)
     return symboles_joueurs, nb_joueurs
 
-grille_info = initialisation_grille()
 
 def sauvegarder_grille(grille_info, dernier_joueur):
-    fichier = open ("partie_en_cours.txt", "w")
+    fichier = open("partie_en_cours.txt", "x")
     fichier.write(str(grille_info[1]) + "\n")
     fichier.write(str(grille_info[2]) + "\n")
     fichier.write(str(dernier_joueur) + "\n")
@@ -116,9 +115,8 @@ def sauvegarder_grille(grille_info, dernier_joueur):
         for j in range(0, len(grille_modifiee[0])):
             variable = variable + str(grille_modifiee[i][j])
     fichier.write(variable)
+    fichier.close()
 
-
-sauvegarder_grille(grille_info, 1)
 
 def charger_grille():
     grille_info = [0]
@@ -128,9 +126,14 @@ def charger_grille():
     dernier_joueur = int(fichier.readline().strip("\n")) # On ajoute la taille de la petite grille
     variable = fichier.readline()
     grille_info[0] = [[[[int(variable[i * grille_info[2] ** 2 * grille_info[1] + j * grille_info[2] + k * grille_info[2] * grille_info[1]]) for l in range(grille_info[2])] for k in range(grille_info[2])] for j in range(grille_info[1])] for i in range(grille_info[1])]
-    return grille_info
+    fichier.close()
+    return grille_info, dernier_joueur
 
-print(grille_info)
+
+def alignement_victoire(grille_info):
+    taille_victoire = round((76/100) * (grille_info[1] * grille_info[2]))
+    return taille_victoire
+
 
 # def alignement_horizontal(grille_modifiee, taille_liste_gagnants, Symboles = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]):
 #     for ligne in range(0, len(grille_modifiee)):

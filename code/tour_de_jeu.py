@@ -64,31 +64,35 @@ def rotation_grille(grille_info):
     taille_grande_grille = grille_info[1] # on recupere la taille de la grille
     entree_valide = False # var qui permet de verifier si l'entree est valide
     while not entree_valide == True: # on sort de la boucle quand l'entree est valide
-        entree = input("Entrez les informations relatives a la rotation (direction ; nb_grille) ex. gauche ; 8 : ")
+        entree = input("Entrez les informations relatives a la rotation (ex : gauche , 2): ")
         while entree == "":
-            entree = input("Entrez les informations relatives a la rotation (direction ; nb_grille) ex. gauche ; 8 : ")
+            entree = input("Entrez les informations relatives a la rotation (ex : gauche , 2): ")
         entree = entree.replace(" ", "") # on enleve les espaces inutiles ecrits par l'utilisateur (permet d'eviter de redemander a cause d'espaces)
-        liste_info = list(x for x in entree.split(";"))
+        liste_info = list(x for x in entree.split(","))
         if len(liste_info) == 2: # Si il n'y a que deux elements 
             if liste_info[0] == "gauche" or liste_info[0] == "droite": # on verifie l'entree des directions
-                try:
                     if liste_info[1] != "0":
-                        liste_info = [liste_info[0], int(liste_info[1])]
-                        entree_valide = True
-                except IndexError:
-                    entree_valide = False
-                    print("Entree invalide : veuillez entrer un nombre entier pour le numero de case")
-            else: print("Entree invalide : veuillez bien entrer 'gauche' ou 'droite' suivi d'un nombre entier")
+                        try:
+                            if int(liste_info[1]) > (grille_info[1]**2):
+                                print("Entree invalide : veuillez entrer une case valide")
+                                entree_valide = False
+                            else:
+                                liste_info = [liste_info[0], int(liste_info[1])]
+                                entree_valide = True
+                        except ValueError:
+                            entree_valide = False
+                            print("Entree invalide : veuillez entrer un nombre entier pour le numero de case")
+            else:
+                print("Entree invalide : veuillez bien entrer 'gauche' ou 'droite' suivi d'un nombre entier")
+                entree_valide = False
         else:
             print("Entree invalide : veuillez entrer deux elements")
-
-        if liste_info[1] % taille_grande_grille == 0: # si la case est un multiple de la taille de la grille
-            grande_ligne = liste_info[1] // taille_grande_grille - 1 # on recupere la ligne de la grande grille
-            grande_colonne = taille_grande_grille -1
-        else: 
-            grande_ligne = liste_info[1] // taille_grande_grille # on recupere la ligne de la grande grille
-            grande_colonne = liste_info[1] % taille_grande_grille - 1 # on recupere la colonne de la grande grille
-
+    if liste_info[1] % taille_grande_grille == 0: # si la case est un multiple de la taille de la grille
+        grande_ligne = liste_info[1] // taille_grande_grille - 1 # on recupere la ligne de la grande grille
+        grande_colonne = taille_grande_grille -1
+    else: 
+        grande_ligne = liste_info[1] // taille_grande_grille # on recupere la ligne de la grande grille
+        grande_colonne = liste_info[1] % taille_grande_grille - 1 # on recupere la colonne de la grande grille
     grille_tournee = grille[grande_ligne][grande_colonne] # On affecte la grille a tourner a une variable
     if liste_info[0] == "gauche": # si on tourne vers la gauche
         rotation_gauche(grille_info, grille_tournee)

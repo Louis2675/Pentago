@@ -23,21 +23,3 @@ def demander_symbole(nb_joueurs):
             if str(symbole) == symboles_joueurs[i]:
                 symboles_joueurs.pop()
     return symboles_joueurs
-
-
-def demander_taille_victoire():
-    entree_valide = False
-    while not entree_valide == True:
-        try:
-            taille_victoire = int(input("Donnez la longueur necessaire de l'alignement pour gagner (ex. 5) : "))
-            if taille_victoire == 1:
-                print("Attention, avec cette entree, le premier joueur a jouer gagne la partie...")
-                reponse = input("Etes-vous sur de vouloir continuer ? (oui pour continuer) : ")
-                if reponse == "oui":
-                    entree_valide = True
-            else:
-                entree_valide = True
-            print("Ok, la partie commencera avec une condition d'alignement victorieux de " + str(taille_victoire) + " case(s) de longueur.")
-        except ValueError:
-            print("Veuillez entrer un nombre entier : ")
-    return taille_victoire
