@@ -50,11 +50,11 @@ def alignement_diagonal(grille_modifiee, taille_victoire, symbole):
     return False    
 
 
-def test_grille_pleine(grille_info):
+def test_grille_pleine(grille_info, symboles):
     for Glig in range(0, grille_info[1]):
         for Gcol in range(0, grille_info[1]):
             for lig in range(0, grille_info[2]):
                 for col in range(0, grille_info[2]):
-                    if grille_info[0][Glig][Gcol][lig][col] == " ":
+                    if grille_info[0][Glig][Gcol][lig][col] == symboles[-1]:
                         return False
     return True

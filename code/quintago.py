@@ -29,49 +29,52 @@ def jouer(symboles):
         dernier_joueur = 0
         nb_joueurs = info_joueurs
 
-    victoire = test_grille_pleine(grille_info)
+    victoire = test_grille_pleine(grille_info, symboles)
     if victoire == True:
         print("Match nul, la grille est pleine")
         remove("partie_en_cours.txt")
     taille_victoire = alignement_victoire(grille_info)
     print("La taille de l'alignement necessaire est de", taille_victoire, "pour cette partie")
 
-    while victoire == False:
-        for i in range(dernier_joueur, len(symboles_joueurs)):
+
+    while victoire == False :
+        sortie = False
+        while dernier_joueur < len(symboles_joueurs) and sortie == False:
             afficher_grille(grille_info)
-            jouer_tour(grille_info, i, symboles_joueurs)
+            jouer_tour(grille_info, dernier_joueur, symboles_joueurs)
             afficher_grille(grille_info)
             liste_victoire = test_victoire(grille_info, taille_victoire, symboles_joueurs)
             if liste_victoire[0] == 0:
                 victoire = False
             elif liste_victoire[0] == True:
                 victoire = True
-                print("Le joueur", liste_victoire[1], "a gagné")
-                break
+                print("Le joueur", liste_victoire[1 + 1], "a gagné")
+                sortie = True
             elif liste_victoire[0] == -1:
                 victoire = True
                 print("Match nul, les joueurs", liste_victoire[1], "ont gagné et les autres ont perdu")
-                break
+                sortie = True
             if victoire == True:
                 try:
                     fichier = open("partie_en_cours.txt", "r")
                     fichier.close()
                     remove("partie_en_cours.txt")
-                    break
+                    sortie = True
                 except FileNotFoundError:
                     pass
             if victoire == False:
                 a = input("Appuyez sur entrée pour continuer ou entrez 'sauvegarde' pour sauvegarder la partie : ")
                 if a == "sauvegarde":
-                    sauvegarder_grille(grille_info, i + 1, nb_joueurs)
+                    sauvegarder_grille(grille_info, dernier_joueur + 1, nb_joueurs)
                     print("La partie a été sauvegardée")
                     victoire = True
-                    break
-        grille_pleine = test_grille_pleine(grille_info)
-        if grille_pleine == True:
-            victoire = True
-            print("Match nul, la grille est pleine")
-            break
+                    sortie = True
+                grille_pleine = test_grille_pleine(grille_info, symboles)
+                if grille_pleine == True:
+                    victoire = True
+                    print("Match nul, la grille est pleine")
+                    sortie = True
+            dernier_joueur = dernier_joueur + 1
         dernier_joueur = 0
 
 

@@ -4,16 +4,16 @@ def bienvenue():
     print('''
   ___ _                                                      _     _                 
  | _ |_)___ _ ___ _____ _ _ _  _ ___   __ _ _  _   __ _ _  _(_)_ _| |_ __ _ __ _ ___ 
- | _ \ / -_) ' \ V / -_) ' \ || / -_) / _` | || | / _` | || | | ' \  _/ _` / _` / _ \
+ | _ \ / -_) ' \ V / -_) ' \ || / -_) / _` | || | / _` | || | | ' \  _/ _` / _` / _ \\
  |___/_\___|_||_\_/\___|_||_\_,_\___| \__,_|\_,_| \__, |\_,_|_|_||_\__\__,_\__, \___/
                                                      |_|                   |___/     
     ''')
 
 
 def afficher_ligne (sous_grille, taille_sous_grille, ligne): # Fonction qui permet d'afficher une ligne de la petite grille
-    print("|", end="") # Met un element au debut de chaque ligne
+    print("|", end = "") # Met un element au debut de chaque ligne
     for colonne in range(0, taille_sous_grille): # Pour chaque element de la ligne
-        print(" {} ".format(sous_grille[ligne][colonne]), end="|") # On affiche l'element
+        print(" {} ".format(sous_grille[ligne][colonne]), end = "|") # On affiche l'element
 
 
 def afficher_grille(grille_info): # Fonction qui permet d'afficher la grille
@@ -27,4 +27,3 @@ def afficher_grille(grille_info): # Fonction qui permet d'afficher la grille
             for j in range(0, taille_grille): # Pour le nombre de sous-grilles dans une grande-ligne
                 afficher_ligne(grille[k][j], taille_sous_grille, i)
             print()
-

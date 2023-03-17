@@ -74,7 +74,7 @@ def rotation_grille(grille_info):
                     if liste_info[1] != "0":
                         try:
                             if int(liste_info[1]) > (grille_info[1]**2):
-                                print("Entree invalide : veuillez entrer une case valide")
+                                print("Entree invalide : veuillez entrer une sous-grille valide")
                                 entree_valide = False
                             else:
                                 liste_info = [liste_info[0], int(liste_info[1])]
