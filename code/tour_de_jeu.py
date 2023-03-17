@@ -1,6 +1,9 @@
+""""Ce fichier contient les fonctions d'un tour du jeu"""
+
 from initialisation import copie_profonde_liste
 from parametres import SYMBOLE_VIDE
 from affichage import afficher_grille
+
 
 def jouer_case(grille_info, symbole):
     """
@@ -31,26 +34,26 @@ def jouer_case(grille_info, symbole):
                 if mauvais_nombre_trouve == False: # Si aucun mauvais nombre n'a ete trouve, on sort de la boucle
                     entree_valide = True
 
-        ligne = coordonnees[1]
+        ligne = coordonnees[1] # On determine la ligne et la colonne a partir des coordonnees entrees
         colonne = coordonnees[0]
 
-        if ligne % taille_petite_grille == 0:
-            grande_ligne = (ligne - 1) // taille_petite_grille
+        if ligne % taille_petite_grille == 0: # Si le reste de la division euclidienne de la ligne et de la taille de la petite grille = 0
+            grande_ligne = (ligne - 1) // taille_petite_grille # La grande ligne est égale a la division euclidienne de la ligne - 1 et de la taille de la petite grille
         else:
-            grande_ligne = ligne // taille_petite_grille
+            grande_ligne = ligne // taille_petite_grille # Sinon on fait la meme chose sans enlever 1 a la ligne
         
-        if colonne % taille_petite_grille == 0:
+        if colonne % taille_petite_grille == 0: # On fait la meme chose pour la grande colonne
             grande_colonne = (colonne - 1) // taille_petite_grille
         else:
             grande_colonne = colonne // taille_petite_grille
 
-        if ligne % taille_petite_grille == 0: #Si la valeur de la ligne est plus grande que la taille de la sous grille,
-            ligne = (ligne - 1) % taille_petite_grille #La ligne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+        if ligne % taille_petite_grille == 0: # Si le reste de la division euclidienne de la ligne et de la taille de la petite grille = 0
+            ligne = (ligne - 1) % taille_petite_grille # La ligne est égale au reste de la division euclidienne de la ligne - 1 et de la taille de la petite grille
         else:
-            ligne = (ligne % taille_petite_grille) - 1
+            ligne = (ligne % taille_petite_grille) - 1 # Sinon la ligne est egale au reste de la division euclidienne de la ligne et de la taille de la petite grille, le tout - 1
 
-        if colonne % taille_petite_grille == 0: #Si la valeur de la colonne est plus grande que la taille de la sous grille,
-            colonne = (colonne - 1) % taille_petite_grille #La colonne est egale au reste de la division euclidienne de la valeur de celle-ci par la taille de la sous grille
+        if colonne % taille_petite_grille == 0: # On fait la meme chose avec la colonne
+            colonne = (colonne - 1) % taille_petite_grille
         else:
             colonne = (colonne % taille_petite_grille) - 1
 
@@ -60,6 +63,10 @@ def jouer_case(grille_info, symbole):
 
 
 def rotation_grille(grille_info):
+    """
+    Entree : les informations de la grille de jeu
+    Sortie : la grille de jeu avec une rotation effectuee 
+    """
     grille = grille_info[0]  # on recupere la grille
     taille_grande_grille = grille_info[1] # on recupere la taille de la grille
     entree_valide = False # var qui permet de verifier si l'entree est valide
@@ -102,8 +109,12 @@ def rotation_grille(grille_info):
 
 
 def rotation_droite(grille_info, grille_tournee):
-    grille = grille_tournee
-    taille_petite_grille = grille_info[2]
+    """
+    Entree : les informations de la grille de jeu et la grille a tourner
+    Sortie : Rien, la grille est tournee 
+    """
+    grille = grille_tournee # on affecte la grille a tourner a une variable
+    taille_petite_grille = grille_info[2] # on recupere la taille de la petite grille
     sauvegarde = copie_profonde_liste(grille) # On cree une sauvegarde de la petite grille (a changer aussi)
     for colonne in range(0, taille_petite_grille): # pour avoir le nombre de la colonne
         ligne = taille_petite_grille - colonne - 1 # on regarde quelle ligne sera affecte dans la colonne apres la rotation
@@ -112,6 +123,10 @@ def rotation_droite(grille_info, grille_tournee):
 
 
 def rotation_gauche(grille_info, grille_tournee): # Une rotation vers la droite correspond a trois rotations vers la gauche...
+    """
+    Entree : les informations de la grille de jeu et la grille a tourner
+    Sortie : Rien, la grille est tournee
+    """
     grille = grille_tournee
     taille_petite_grille = grille_info[2]
     sauvegarde = copie_profonde_liste(grille) # On cree une sauvegarde de la petite grille (a changer aussi)
@@ -138,5 +153,7 @@ def jouer_tour(grille_info, nb_joueur, symboles_joueurs): # Fonction qui permet 
     """
     print("Joueur",  nb_joueur + 1, "à toi de jouer !")
     jouer_case(grille_info, symboles_joueurs[nb_joueur]) # On derande au joueur de jouer une case
+    print()
     afficher_grille(grille_info) # On affiche la grille
+    print()
     rotation_grille(grille_info) # On demande au joueur de tourner la grille
