@@ -1,6 +1,7 @@
-from parametres import SYMBOLE_VIDE, SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2
+from parametres import SYMBOLE_VIDE, SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2, SYMBOLE_JOUEUR_3, SYMBOLE_JOUEUR_4
 from tests_alignements import alignement_horizontal, alignement_vertical, alignement_diagonal
-from saisie import demander_nb_joueurs, demander_symbole
+from saisie import demander_nb_joueurs
+from os import remove
 
 
 def copie_profonde_liste(liste): # Fonction qui permet de copier une liste sur deux dimensions
@@ -27,7 +28,10 @@ def initialisation_petite_grille(): # Fonction qui permet d'initialiser la petit
     while not entree_valide == True: #Tant que l'entrée n'est pas valide
         try: # On utilise un try/except pour verifier si l'entree est un nombre entier
             taille_grille = int(input("Donnez un coté de la petite grille (ex. 3 pour une grille en 3x3): ")) # On demande a l'utilisateur de saisir un nombre entier
-            entree_valide = True # Si l'entree est valide, on sort de la boucle
+            if taille_grille < 3: # Minimum 3x3 cases pour une petite grille
+                entree_valide = False
+                print("Veuillez saisir une taille superieure à 3 pour la petite grille")
+            else: entree_valide = True # Si l'entree est valide, on sort de la boucle
         except ValueError: # Si l'entree n'est pas valide, on affiche un message d'erreur et on recommence
             print("Veuillez entrer un nombre entier")  
             entree_valide = False 
@@ -50,7 +54,10 @@ def initialisation_grille():
     while not entree_valide == True:
         try:
             taille_grille = int(input("Choisissez le nombre de petites grilles (ex. 4 pour 4x4 petite grilles): "))
-            entree_valide = True
+            if taille_grille < 2: 
+                entree_valide = False
+                print("Veuillez saisir une taille superieure à 2 pour la grande grille")
+            else: entree_valide = True
         except ValueError:
             print("Veuillez entrer un nombre entier")  
             entree_valide = False 
@@ -94,20 +101,24 @@ def test_victoire(grille_info, taille_victoire, symboles_joueurs):
     return (resultat, liste_gagnants)
 
 
-def initialisation_joueurs():
+def initialisation_joueurs(symboles_joueurs):
     nb_joueurs = demander_nb_joueurs()
-    if nb_joueurs == 2:
-        symboles_joueurs = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]
-    if nb_joueurs > 2: 
-        symboles_joueurs = demander_symbole(nb_joueurs)
-    return symboles_joueurs, nb_joueurs
+    while len(symboles_joueurs) > nb_joueurs:
+        symboles_joueurs.pop()
+    return nb_joueurs
 
 
-def sauvegarder_grille(grille_info, dernier_joueur):
-    fichier = open("partie_en_cours.txt", "x")
+def sauvegarder_grille(grille_info, dernier_joueur, nb_joueurs):
+    try:
+        fichier = open("partie_en_cours.txt", "x")
+    except FileExistsError:
+        remove("partie_en_cours.txt")
+        fichier = open("partie_en_cours.txt", "x")
+    modification_symbole_sauvegarder(grille_info)
     fichier.write(str(grille_info[1]) + "\n")
     fichier.write(str(grille_info[2]) + "\n")
     fichier.write(str(dernier_joueur) + "\n")
+    fichier.write(str(nb_joueurs) + "\n")
     grille_modifiee = transformation_dimension(grille_info)
     variable = ""
     for i in range(0, len(grille_modifiee)):
@@ -123,10 +134,17 @@ def charger_grille():
     grille_info.append(int(fichier.readline().strip("\n"))) # On ajoute la taille de la grille
     grille_info.append(int(fichier.readline().strip("\n"))) # On ajoute la taille de la grille
     dernier_joueur = int(fichier.readline().strip("\n")) # On ajoute la taille de la petite grille
+    nb_joueurs = int(fichier.readline().strip("\n")) # On ajoute le nombre de joueurs
     variable = fichier.readline()
-    grille_info[0] = [[[[int(variable[i * grille_info[2] ** 2 * grille_info[1] + j * grille_info[2] + k * grille_info[2] * grille_info[1]]) for l in range(grille_info[2])] for k in range(grille_info[2])] for j in range(grille_info[1])] for i in range(grille_info[1])]
+    grille_info[0] = [[[[int(variable[i * grille_info[2] ** 2 * grille_info[1] + j * grille_info[2] + k * grille_info[2] * grille_info[1] + l])
+                         for l in range(grille_info[2])]
+                         for k in range(grille_info[2])]
+                         for j in range(grille_info[1])]
+                         for i in range(grille_info[1])]
+    modification_symbole_charger(grille_info)
     fichier.close()
-    return grille_info, dernier_joueur
+    return grille_info, dernier_joueur, nb_joueurs
+
 
 
 def alignement_victoire(grille_info):
@@ -134,54 +152,35 @@ def alignement_victoire(grille_info):
     return taille_victoire
 
 
-# def alignement_horizontal(grille_modifiee, taille_liste_gagnants, Symboles = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]):
-#     for ligne in range(0, len(grille_modifiee)):
-#         compteur = 0
-#         for colonne in range(1, len(grille_modifiee[ligne])):
-#             if grille_modifiee[0][ligne] == grille_modifiee[ligne][colonne - 1] == Symboles[1] or grille_modifiee[ligne][colonne] == grille_modifiee[ligne][colonne - 1] == Symboles[0]:
-#                 if compteur == 0:
-#                     compteur = compteur + 2
-#                 else:
-#                     compteur = compteur + 1
-#             else:
-#                 compteur = 0
-#             if compteur >= taille_liste_gagnants:
-#                 return True
-#     return False       
-            
-
-# def alignement_vertical(grille_modifiee, taille_liste_gagnants, Symboles = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]):
-#     for colonne in range(0, len(grille_modifiee)):
-#         compteur = 0
-#         for ligne in range(1, len(grille_modifiee)): #Ne va pas jusqu'au bout, peut etre à cause de la grille temporaire, à tester sur la vraie grille
-#             if grille_modifiee[ligne][colonne] == grille_modifiee[ligne -1][colonne] == Symboles[1] or grille_modifiee[ligne][colonne] == grille_modifiee[ligne -1][colonne] == Symboles[0]:
-#                 if compteur == 0:
-#                     compteur = compteur + 2
-#                 else:
-#                     compteur = compteur + 1
-#             else:
-#                 compteur = 0
-#         if compteur >= taille_liste_gagnants:
-#             return True
-#     return False
+def modification_symbole_sauvegarder(grille_info, j1=SYMBOLE_JOUEUR_1, j2=SYMBOLE_JOUEUR_2, j3=SYMBOLE_JOUEUR_3, j4=SYMBOLE_JOUEUR_4, vide=SYMBOLE_VIDE):
+    for Glig in range(0, grille_info[1]):
+        for Gcol in range(0, grille_info[1]):
+            for lig in range(0, grille_info[2]):
+                for col in range(0, grille_info[2]):
+                    if grille_info[0][Glig][Gcol][lig][col] == j1:
+                        grille_info[0][Glig][Gcol][lig][col] = 1
+                    if grille_info[0][Glig][Gcol][lig][col] == j2:
+                        grille_info[0][Glig][Gcol][lig][col] = 2
+                    if grille_info[0][Glig][Gcol][lig][col] == j3:
+                        grille_info[0][Glig][Gcol][lig][col] = 3
+                    if grille_info[0][Glig][Gcol][lig][col] == j4:
+                        grille_info[0][Glig][Gcol][lig][col] = 4
+                    if grille_info[0][Glig][Gcol][lig][col] == vide:
+                        grille_info[0][Glig][Gcol][lig][col] = 0
 
 
-# def alignement_diagonal(grille_modifiee, taille_liste_gagnants, Symboles = [SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2]):
-#     compteur = 0
-#     for i in range(1, len(grille_modifiee[0])):
-#         if grille_modifiee[-i -1][i] == grille_modifiee[-i][i -1] == Symboles[1] or grille_modifiee[-i -1][i] == grille_modifiee[-i][i -1] == Symboles[0]:
-#             if compteur == 0:
-#                 compteur = compteur + 2
-#             else:
-#                 compteur = compteur + 1
-#             if compteur == taille_liste_gagnants:
-#                 return True
-#     else: 
-#         for i in range(1, len(grille_modifiee[0])):
-#             if grille_modifiee[i][i] == grille_modifiee[i -1][i -1] == Symboles[1] or grille_modifiee[i][i] == grille_modifiee[i - 1][i -1] == Symboles[0]:
-#                 if compteur == 0:
-#                     compteur = compteur + 2
-#                 else:
-#                     compteur = compteur + 1
-#                 if compteur == taille_liste_gagnants:
-#                     return True
+def modification_symbole_charger(grille_info, j1=SYMBOLE_JOUEUR_1, j2=SYMBOLE_JOUEUR_2, j3=SYMBOLE_JOUEUR_3, j4=SYMBOLE_JOUEUR_4, vide=SYMBOLE_VIDE):
+    for Glig in range(0, grille_info[1]):
+        for Gcol in range(0, grille_info[1]):
+            for lig in range(0, grille_info[2]):
+                for col in range(0, grille_info[2]):
+                    if grille_info[0][Glig][Gcol][lig][col] == 1:
+                        grille_info[0][Glig][Gcol][lig][col] = j1
+                    if grille_info[0][Glig][Gcol][lig][col] == 2:
+                        grille_info[0][Glig][Gcol][lig][col] = j2
+                    if grille_info[0][Glig][Gcol][lig][col] == 3:
+                        grille_info[0][Glig][Gcol][lig][col] = j3
+                    if grille_info[0][Glig][Gcol][lig][col] == 4:
+                        grille_info[0][Glig][Gcol][lig][col] = j4
+                    if grille_info[0][Glig][Gcol][lig][col] == 0:
+                        grille_info[0][Glig][Gcol][lig][col] = vide

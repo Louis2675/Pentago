@@ -30,9 +30,12 @@ Voici l'arborescence des fichiers du projet et leur fonction
 
 ### Paramètres et librairies utilisés
 
-- `SYMBOLE_JOUEUR_1` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case ([color=#f4f4f4]●[/color])
+- `SYMBOLE_JOUEUR_1` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● - rouge)
 - `SYMBOLE_JOUEUR_2` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● - bleu)
+- `SYMBOLE_JOUEUR_3` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● - jaune)
+- `SYMBOLE_JOUEUR_4` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● - violet)
 - `SYMBOLE_VIDE` : Ce symbole sert à remplir la grille quand une case est vide (.)
+- `symboles` : liste contenant les symboles des joueurs
 
 - `os (.remove)` : Cette librairie nous permet de supprimer un fichier
 

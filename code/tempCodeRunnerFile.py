@@ -1,2 +1,1 @@
-
-            fichier.close()
+            print(grille_info)
