@@ -36,8 +36,9 @@ Voici l'arborescence des fichiers du projet et leur fonction
 - `SYMBOLE_JOUEUR_4` : Ce symbole sert à remplir la grille quand le joueur 1 a rempli une case (● - violet)
 - `SYMBOLE_VIDE` : Ce symbole sert à remplir la grille quand une case est vide (.)
 - `symboles` : liste contenant les symboles des joueurs
-
+<br>
 - `os (.remove)` : Cette librairie nous permet de supprimer un fichier
+- `random (.shuffle)` : Cette librairie nous permet de mélanger une liste
 
 ## Remerciements
 

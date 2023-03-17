@@ -2,6 +2,7 @@ from parametres import SYMBOLE_VIDE, SYMBOLE_JOUEUR_1, SYMBOLE_JOUEUR_2, SYMBOLE
 from tests_alignements import alignement_horizontal, alignement_vertical, alignement_diagonal
 from saisie import demander_nb_joueurs
 from os import remove
+from random import shuffle
 
 
 def copie_profonde_liste(liste): # Fonction qui permet de copier une liste sur deux dimensions
@@ -184,3 +185,27 @@ def modification_symbole_charger(grille_info, j1=SYMBOLE_JOUEUR_1, j2=SYMBOLE_JO
                         grille_info[0][Glig][Gcol][lig][col] = j4
                     if grille_info[0][Glig][Gcol][lig][col] == 0:
                         grille_info[0][Glig][Gcol][lig][col] = vide
+
+def ordre_joueurs(nb_joueurs):
+    entree_valide = False
+    while entree_valide == False:
+        joueurs = input("Veuillez entrer les noms des {} joueurs séparés par une virgule (ex. Maxime, Louis): ".format(str(nb_joueurs)))
+        joueurs = joueurs.replace(" ", "")
+        joueurs = joueurs.split(",")
+
+        if len(joueurs) == nb_joueurs:
+            shuffle(joueurs)
+            for i in range(0, len(joueurs)):
+                print("Le joueur", str(i + 1), "est", joueurs[i])
+                entree_valide = True
+        else:
+            print("Erreur: Vous n'avez pas entré le bon nombre de joueurs")
+        for i in range(0, len(joueurs)):
+            if joueurs[i] == "":
+                print("Erreur: Vous avez entré un nom vide")
+        
+    return joueurs
+
+print(ordre_joueurs(4))
+
+        
